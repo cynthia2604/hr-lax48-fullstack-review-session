@@ -14,6 +14,14 @@ const controller = {
     },
     postStudent: function (req, res) {
       // TODO: add your code here to add a new student
+      let { name, imageUrl } = req.body
+      Student.create({ name : name}, {imageUrl: imageUrl})
+        .then(() => {
+          res.status(201).send("success add new student");
+        })
+        .catch((err) => {
+          res.status(404).send("failure to add new student", err);
+        })
 
     },
     updateName: function (req, res) {
