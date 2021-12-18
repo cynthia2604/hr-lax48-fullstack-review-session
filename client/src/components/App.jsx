@@ -61,7 +61,7 @@ export default class App extends React.Component {
       return (
         <div>
           <button onClick={this.changepage} value='home'>Back</button>
-          <Random />
+          <Random students={this.state.studentlist}/>
         </div>
       )
     } else {
