@@ -20,6 +20,8 @@ class ListElement extends React.Component {
     })
       .then(() => this.props.getStudents())
       .catch((err) => console.error(err))
+      .then(() => this.editMode())
+      .then(() => this.changeNameMode())
   }
   // changeName // track of input change name
   changeNameMode() {
@@ -27,7 +29,7 @@ class ListElement extends React.Component {
       return (
         <div>
           <input type="text" name="name" placeholder={this.props.student.name} onChange={this.handleNameChange}></input>
-          <button>Cancel</button>
+          <button onClick={this.editMode}>Cancel</button>
           <button onClick={this.updateNameRequest}>Update</button>
         </div>
       )
