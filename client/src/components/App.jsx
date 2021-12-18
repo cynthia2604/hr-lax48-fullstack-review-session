@@ -1,4 +1,8 @@
 import React from 'react';
+import axios from 'axios';
+import List from './List.jsx';
+import Add from './Add.jsx';
+import Random from './Random.jsx';
 
 export default class App extends React.Component {
   constructor(props){
@@ -7,6 +11,7 @@ export default class App extends React.Component {
       page: 'home',
       studentlist : []
     }
+    this.changepage = this.changepage.bind(this);
   }
 
   componentDidMount(){
@@ -16,42 +21,54 @@ export default class App extends React.Component {
 
   getStudents(){
     // Todo: Add your code here to retrieve all students from the database
-
+    axios.get('/studentlist/students')
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          studentlist : response.data
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   changepage(e){
     // Todo: Add your logic to "change pages" here on button click
-
+    console.log('click', e.target.value);
+    this.setState({
+      page : e.target.value
+    })
   }
 
   render() {
     if (this.state.page === 'add'){
       return (
         <div>
-          <button value='home'>Back</button>
+          <button onClick={this.changepage} value='home'>Back</button>
           <Add />
         </div>
       )
     } else if (this.state.page === 'list'){
       return (
         <div>
-          <button value='home'>Back</button>
+          <button onClick={this.changepage} value='home'>Back</button>
           <List />
         </div>
       )
     } else if (this.state.page === 'random'){
       return (
         <div>
-          <button value='home'>Back</button>
+          <button onClick={this.changepage} value='home'>Back</button>
           <Random />
         </div>
       )
     } else {
       return (
         <div>
-          <button value='add'>Add Student</button>
-          <button value='list'>List Students</button>
-          <button value='random'>Random Student</button>
+          <button onClick={this.changepage} value='add'>Add Student</button>
+          <button onClick={this.changepage} value='list'>List Students</button>
+          <button onClick={this.changepage} value='random'>Random Student</button>
         </div>
       )
     }
