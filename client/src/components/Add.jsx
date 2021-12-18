@@ -8,16 +8,20 @@ export default class Add extends React.Component {
       name: '',
       imgurl: ''
     }
+    this.changeHandler = this.changeHandler.bind(this);
   }
 
   changeHandler(e){
     // Todo: Add your code here to handle the data the client inputs
-
+    e.persist();
+    this.setState({
+      [e.target.name] : e.target.value
+    })
   }
 
   handleSubmit(e){
     // Todo: Add your code here to handle the API requests to add a student
-
+    // post request to add new student to database
   }
 
   showPreview(){
@@ -40,9 +44,9 @@ export default class Add extends React.Component {
       <div>
         <form>
           <label>Student Name: </label>
-          <input type="text" name="name" />
+          <input type="text" name="name" onChange={this.changeHandler}/>
           <label>Image URL: </label>
-          <input type="text" name="imgurl" />
+          <input type="text" name="imgurl" onChange={this.changeHandler}/>
           <button type="submit" value="Submit">Submit</button>
         </form>
         <h1>Preview:</h1>
