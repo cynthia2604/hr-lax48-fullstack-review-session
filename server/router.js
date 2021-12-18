@@ -10,5 +10,6 @@ router.route('/students')
 
 // route for updating a student's name
 router.route('/students/:id')
+  .put(controller.students.updateName)
 
 module.exports = router;

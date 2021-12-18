@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class ListElement extends React.Component {
   constructor(props) {
@@ -10,6 +11,15 @@ class ListElement extends React.Component {
     this.editMode = this.editMode.bind(this);
     this.changeNameMode = this.changeNameMode.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.updateNameRequest = this.updateNameRequest.bind(this);
+  }
+  updateNameRequest() {
+    axios.put(`/studentlist/students/${this.props.student._id}`, {
+      name : this.state.inputName,
+      studentId : this.props.student._id
+    })
+      .then(() => this.props.getStudents())
+      .catch((err) => console.error(err))
   }
   // changeName // track of input change name
   changeNameMode() {
@@ -18,7 +28,7 @@ class ListElement extends React.Component {
         <div>
           <input type="text" name="name" placeholder={this.props.student.name} onChange={this.handleNameChange}></input>
           <button>Cancel</button>
-          <button>Update</button>
+          <button onClick={this.updateNameRequest}>Update</button>
         </div>
       )
     }

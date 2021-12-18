@@ -12,6 +12,7 @@ export default class App extends React.Component {
       studentlist : []
     }
     this.changepage = this.changepage.bind(this);
+    this.getStudents = this.getStudents.bind(this);
   }
 
   componentDidMount(){
@@ -35,7 +36,7 @@ export default class App extends React.Component {
 
   changepage(e){
     // Todo: Add your logic to "change pages" here on button click
-    console.log('click', e.target.value);
+    //console.log('click', e.target.value);
     this.setState({
       page : e.target.value
     })
@@ -53,7 +54,7 @@ export default class App extends React.Component {
       return (
         <div>
           <button onClick={this.changepage} value='home'>Back</button>
-          <List students={this.state.studentlist}/>
+          <List students={this.state.studentlist} getStudents={this.getStudents}/>
         </div>
       )
     } else if (this.state.page === 'random'){

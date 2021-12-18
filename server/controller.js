@@ -18,7 +18,16 @@ const controller = {
     },
     updateName: function (req, res) {
       // TODO: add your code here to update a student's name
-
+      //return console.log(req.body) //{ name: 'test', studentId: '61bd69968dbdc8644273569d' }
+      let { name, studentId } = req.body;
+      //return console.log(name, studentId);
+      Student.findOneAndUpdate({_id : studentId}, {name : name})
+        .then(() => {
+          res.status(201).send("success update student name")
+        })
+        .catch((err) => {
+          res.status(404).send("failure to update student name")
+        })
     }
   }
 };
