@@ -4,17 +4,19 @@ class ListElement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      inputName : '',
       toggleEdit : false
     }
     this.editMode = this.editMode.bind(this);
     this.changeNameMode = this.changeNameMode.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
   // changeName // track of input change name
   changeNameMode() {
     if (this.state.toggleEdit) {
       return (
         <div>
-          <input type="text" name="name" placeholder={this.props.student.name}></input>
+          <input type="text" name="name" placeholder={this.props.student.name} onChange={this.handleNameChange}></input>
           <button>Cancel</button>
           <button>Update</button>
         </div>
@@ -25,6 +27,11 @@ class ListElement extends React.Component {
   editMode() {
     this.setState({
       toggleEdit : !this.state.toggleEdit
+    })
+  }
+  handleNameChange(e) {
+    this.setState({
+      inputName : e.target.value
     })
   }
   render() {
