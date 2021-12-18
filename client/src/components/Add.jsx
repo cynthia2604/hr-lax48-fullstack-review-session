@@ -9,6 +9,7 @@ export default class Add extends React.Component {
       imgurl: ''
     }
     this.changeHandler = this.changeHandler.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   changeHandler(e){
@@ -22,6 +23,18 @@ export default class Add extends React.Component {
   handleSubmit(e){
     // Todo: Add your code here to handle the API requests to add a student
     // post request to add new student to database
+    e.preventDefault();
+    axios.post('/studentlist/students', {
+      name : this.state.name,
+      imageUrl: this.state.imgurl
+    })
+      .then(() => {
+        console.log("succuss post request");
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .then(() => this.props.getStudents())
   }
 
   showPreview(){
@@ -42,7 +55,7 @@ export default class Add extends React.Component {
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label>Student Name: </label>
           <input type="text" name="name" onChange={this.changeHandler}/>
           <label>Image URL: </label>
